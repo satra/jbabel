@@ -10,10 +10,9 @@
       expect(image.header).toBeDefined();
       return expect(image.description).toBe('');
     });
-    it("initializes successfully from a Papaya volume", function() {
-      var image, papaya_vol;
-      papaya_vol = 1;
-      image = Image.fromPapayaVolume(volume);
+    it("loads from a URL", function() {
+      var image;
+      image = Image.load('data/brain.nii.gz');
       return expect(image).toBeDefined();
     });
     it("returns the header", function() {

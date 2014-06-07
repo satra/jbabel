@@ -17,15 +17,20 @@ class @Image
   getHeader: () -> 
     @header
 
-  @fromPapayaVolume: (volume) ->
-    # Initialize an Image class from a Papaya volume. Doesn't work yet
-    [a for a in b if a == 3]
-    data = volume.data
-    dtype = 'volume'
-    filetype = 'Nifti Volume'
+  @load: (url) ->
+    createImage = (vol) ->
+      dims = vol.header.imageDimensions
+      data = ndarray(vol.imageData.data, [dims.xDim, dims.yDim, dims.zDim])
 
-    # Add header fields
-    header = {}
-    header[k] = volume.nifti.NIFTI[k] for k in volume.nifti.NIFTI.keys()
+      # Add header fields
+      header = {}
+      header[k] = vol.header.fileFormat.nifti[k] for k in Object.keys(vol.header.fileFormat.nifti)
 
-    new Image(data, header, dtype, filetype=filetype)
+      img = new Image(data, header, 'volume', filetype='Nifti Volume')
+      alert(img.header.qoffset_z)
+    
+    vol = new papaya.volume.Volume()
+    return vol.readURL(url, createImage)
+    
+
+    

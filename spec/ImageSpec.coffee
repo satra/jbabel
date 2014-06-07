@@ -7,9 +7,8 @@ describe "Image", ->
     expect(image.header).toBeDefined()
     expect(image.description).toBe('')
 
-  it "initializes successfully from a Papaya volume", ->
-    papaya_vol = 1
-    image = Image.fromPapayaVolume(volume)
+  it "loads from a URL", ->
+    image = Image.load('data/brain.nii.gz')
     expect(image).toBeDefined()
 
   it "returns the header", ->
