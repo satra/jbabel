@@ -8,6 +8,8 @@ describe "Image", ->
     expect(image.description).toBe('')
 
   it "loads from a URL", ->
+    # Test will fail for now because loading is asynchronous and test 
+    # doesn't wait for result to return. Need to update test with waitFor()
     image = Image.load('data/brain.nii.gz')
     expect(image).toBeDefined()
 
