@@ -10,10 +10,11 @@
       expect(image.header).toBeDefined();
       return expect(image.description).toBe('');
     });
-    it("loads from a URL", function() {
-      var image;
-      image = Image.load('data/brain.nii.gz');
-      return expect(image).toBeDefined();
+    it("loads from a URL", function(done) {
+      return Image.load('data/brain.nii.gz', function(image) {
+        expect(image).toBeDefined();
+        return done();
+      });
     });
     it("returns the header", function() {
       var image;

@@ -7,11 +7,14 @@ describe "Image", ->
     expect(image.header).toBeDefined()
     expect(image.description).toBe('')
 
-  it "loads from a URL", ->
+  it "loads from a URL", (done) ->
     # Test will fail for now because loading is asynchronous and test 
     # doesn't wait for result to return. Need to update test with waitFor()
-    image = Image.load('data/brain.nii.gz')
-    expect(image).toBeDefined()
+    Image.load('data/brain.nii.gz', (image) ->
+      expect(image).toBeDefined()
+      done()
+    )
+    
 
   it "returns the header", ->
     image = new Image([1, 2, 3], 'I am a header!', 'volume')

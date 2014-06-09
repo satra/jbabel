@@ -17,7 +17,7 @@ class @Image
   getHeader: () -> 
     @header
 
-  @load: (url) ->
+  @load: (url, callback) ->
     createImage = (vol) ->
       dims = vol.header.imageDimensions
       data = ndarray(vol.imageData.data, [dims.xDim, dims.yDim, dims.zDim])
@@ -26,11 +26,11 @@ class @Image
       header = {}
       header[k] = vol.header.fileFormat.nifti[k] for k in Object.keys(vol.header.fileFormat.nifti)
 
-      img = new Image(data, header, 'volume', filetype='Nifti Volume')
-      alert(img.header.qoffset_z)
+      #alert(img.header.qoffset_z)
+      callback(new Image(data, header, 'volume', filetype='Nifti Volume'))
     
     vol = new papaya.volume.Volume()
-    return vol.readURL(url, createImage)
+    vol.readURL(url, createImage)
     
 
     
